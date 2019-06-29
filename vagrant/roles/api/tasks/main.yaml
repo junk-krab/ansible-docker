@@ -1,0 +1,15 @@
+- name: copy api service file
+  copy:
+    src: api.service
+    dest: /etc/systemd/system/api.service
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload systemd
+  register: service_file
+
+- name: Create directories
+  file: path={{item}} state=directory
+  with_items:
+  - /etc/lab/api
+  - /var/log/lab/api

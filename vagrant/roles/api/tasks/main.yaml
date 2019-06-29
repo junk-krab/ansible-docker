@@ -1,5 +1,33 @@
 ---
+- name: add docker gpg key
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    
+- name: docker rep
+  apt_repostitory: 
+    repo: dep https://download.docker.com/linux/ubuntu bionic stable
+    
+- name: install docker
+  apt:
+    name:"{{packages}}"
+    
+- name: add user
+  user:
+    name "{{username}}"
+    groups: docker
+    append: yes
+    
+- name: install depend
+  apt:
+    name: python3-pip
+    update_cache: yes
 
+- name: install docker modules
+  pip:
+    name: "{{item}}"
+  with_items:
+    - docker
+    
 - name: copy api service file
   copy:
     src: api.service

@@ -9,11 +9,11 @@
     
 - name: install docker
   apt:
-    name:"{{packages}}"
+    name: docker-ce
     
 - name: add user
   user:
-    name "{{username}}"
+    name: "{{username}}"
     groups: docker
     append: yes
     
